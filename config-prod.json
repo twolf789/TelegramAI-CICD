@@ -1,6 +1,6 @@
 {
-  "aws_region": "<app-aws-region>",
-  "bot_to_worker_queue_name": "<your-sqs-queue-name>",
-  "telegram_token_secret_name": "<your-telegram-token-name>",
-  "videos_bucket": "<your-s3-bucket-name>"
+  "aws_region": "us-east-1",
+  "bot_to_worker_queue_name": "yuval-aws-ex1-queue",
+  "telegram_token_secret_name": "yuval-aws-ex1-telegramAPIsecret",
+  "videos_bucket": "yuval-aws-ex1-bucket"
 }
