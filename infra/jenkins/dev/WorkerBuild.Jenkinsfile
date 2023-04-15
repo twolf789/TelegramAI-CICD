@@ -12,7 +12,7 @@ pipeline {
 
     environment {
         ECR_REPO = "700935310038.dkr.ecr.us-east-1.amazonaws.com"
-        IMAGE_NAME = "TELE_WORKER"
+        IMAGE_NAME = "tele_bot"
         IMAGE_TAG = "$BUILD_NUMBER"
         DOCKER_FILE_PATH = "worker/Dockerfile"
     }
