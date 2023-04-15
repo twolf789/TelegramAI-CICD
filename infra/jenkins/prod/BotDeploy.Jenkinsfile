@@ -9,8 +9,41 @@ pipeline {
 
     environment {
         APP_ENV = "prod"
+        YAML_MANIFEST_PATH = "infra/k8s/bot.yaml"
     }
 
-    // TODO prod bot deploy pipeline
+    parameters {
+        string(name: 'BOT_IMAGE_NAME')
+    }
 
+    stages {
+        stage('Create Bot Manifest') {
+            steps {
+                sh '''
+                if [ -f YAML_MANIFEST_PATH ]; then
+                    echo "Bot deployment manifest already exists..."
+                else
+                    echo "Creating bot deployment manifest..."
+                    kubectl create deployment bot --image=${params.BOT_IMAGE_NAME} --dry-run=client -o yaml > $YAML_MANIFEST_PATH
+                    sed -i '' 's/        resources: {}/        env:\
+                        - name: ENV\
+                          value: dev/g' $YAML_MANIFEST_PATH
+                fi
+                '''
+            }
+        }
+
+        stage('Bot Deploy') {
+            steps {
+                withCredentials([
+                    file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')
+                ]) {
+                    sh '''
+                    # apply the configurations to k8s cluster
+                    kubectl apply --kubeconfig $KUBECONFIG -f $YAML_MANIFEST_PATH
+                    '''
+                }
+            }
+        }
+    }
 }
