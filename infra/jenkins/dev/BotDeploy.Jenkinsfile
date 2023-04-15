@@ -21,8 +21,8 @@ pipeline {
         stage('Create Bot Manifest') {
             steps {
                 sh '''
-                sed -i "s/IMAGE_PLACEHOLDER/$BOT_IMAGE_NAME/g" $YAML_MANIFEST_PATH
-                sed -i "s/ENV_PLACEHOLDER/$APP_ENV/g" $YAML_MANIFEST_PATH
+                sed -i "s|IMAGE_PLACEHOLDER|$BOT_IMAGE_NAME|g" $YAML_MANIFEST_PATH
+                sed -i "s|ENV_PLACEHOLDER|$APP_ENV|g" $YAML_MANIFEST_PATH
                 '''
             }
         }
