@@ -14,7 +14,7 @@ pipeline {
 
     environment {
         ECR_REPO = "700935310038.dkr.ecr.us-east-1.amazonaws.com"
-        IMAGE_NAME = "tele_bot"
+        IMAGE_NAME = "yuval_tele_bot"
         IMAGE_TAG = "$BUILD_NUMBER"
         DOCKER_FILE_PATH = "bot/Dockerfile"
     }
@@ -32,7 +32,7 @@ pipeline {
             }
             post {
                always {
-                    sh 'sudo docker image prune -a --filter "until=240h" --force'
+                    sh 'docker image prune -a --filter "until=240h" --force'
                 }
             }
         }
