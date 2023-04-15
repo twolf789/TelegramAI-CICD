@@ -21,16 +21,16 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                sudo echo "building..."
-                sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPO
-                sudo docker build -t $IMAGE_NAME -f $DOCKER_FILE_PATH .
-                sudo docker tag $IMAGE_NAME $ECR_REPO/$IMAGE_NAME:$BUILD_NUMBER
-                sudo docker push $ECR_REPO/$IMAGE_NAME:$BUILD_NUMBER
+                echo "building..."
+                aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPO
+                docker build -t $IMAGE_NAME -f $DOCKER_FILE_PATH .
+                docker tag $IMAGE_NAME $ECR_REPO/$IMAGE_NAME:$BUILD_NUMBER
+                docker push $ECR_REPO/$IMAGE_NAME:$BUILD_NUMBER
                 '''
             }
             post {
                always {
-                    sh 'sudo docker image prune -a --filter "until=240h" --force'
+                    sh 'docker image prune -a --filter "until=240h" --force'
                 }
             }
         }
