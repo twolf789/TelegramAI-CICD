@@ -4,7 +4,7 @@ pipeline {
             image '700935310038.dkr.ecr.us-east-1.amazonaws.com/yuval-jenkins-exe-agent-image:latest'
             args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
             registryUrl '700935310038.dkr.ecr.us-east-1.amazonaws.com'
-            registryCredentialsId 'ecr:us-east-1:aws-log'
+            registryCredentialsId 'aws-log'
         }
     }
 
