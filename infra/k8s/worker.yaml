@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bot
+  name: worker
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bot
+      app: worker
   template:
     metadata:
       labels:
-        app: bot
+        app: worker
     spec:
       restartPolicy: Always
       containers:
-        - name: bot
+        - name: worker
           image: IMAGE_PLACEHOLDER
           env:
             - name: ENV
