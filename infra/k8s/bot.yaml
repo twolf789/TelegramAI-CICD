@@ -12,10 +12,10 @@ spec:
       labels:
         app: bot
     spec:
+      restartPolicy: Always
       containers:
         - name: bot
           image: IMAGE_PLACEHOLDER
           env:
             - name: ENV
               value: ENV_PLACEHOLDER
-          restartPolicy: Always
