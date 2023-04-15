@@ -21,8 +21,8 @@ pipeline {
         stage('Create Worker Manifest') {
             steps {
                 sh '''
-                sed -i 's/IMAGE_PLACEHOLDER/$WORKER_IMAGE_NAME/g' $YAML_MANIFEST_PATH
-                sed -i 's/ENV_PLACEHOLDER/$APP_ENV/g' $YAML_MANIFEST_PATH
+                sed -i "s/IMAGE_PLACEHOLDER/$WORKER_IMAGE_NAME/g" $YAML_MANIFEST_PATH
+                sed -i "s/ENV_PLACEHOLDER/$APP_ENV/g" $YAML_MANIFEST_PATH
                 '''
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                 ]) {
                     sh '''
                     # apply the configurations to k8s cluster
-                    kubectl apply --kubeconfig $KUBECONFIG -f $YAML_MANIFEST_PATH
+                    kubectl apply --kubeconfig $KUBECONFIG -f $YAML_MANIFEST_PATH -n dev
                     '''
                 }
             }
