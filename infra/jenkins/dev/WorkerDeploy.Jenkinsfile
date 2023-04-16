@@ -34,7 +34,7 @@ pipeline {
                 ]) {
                     sh '''
                     # apply the configurations to k8s cluster
-                    kubectl apply --kubeconfig $KUBECONFIG -f $YAML_MANIFEST_PATH -n dev
+                    kubectl apply --kubeconfig $KUBECONFIG -f $YAML_MANIFEST_PATH -n $APP_ENV
                     '''
                 }
             }
