@@ -1,9 +1,9 @@
 import os
+import json
 import telebot
 from botocore.exceptions import ClientError
 from loguru import logger
 import boto3
-import json
 
 
 class Bot:
@@ -44,7 +44,8 @@ class Bot:
         :return:
         """
         if self.current_msg.content_type != 'photo':
-            raise RuntimeError(f'Message content of type \'photo\' expected, but got {self.current_msg["content_type"]}')
+            raise RuntimeError(f'Message content of type \'photo\' expected, \
+            but got {self.current_msg["content_type"]}')
 
         file_info = self.bot.get_file(self.current_msg.photo[quality].file_id)
         data = self.bot.download_file(file_info.file_path)
@@ -105,4 +106,5 @@ if __name__ == '__main__':
 
     my_bot = YoutubeBot(telegram_token)
     my_bot.start()
-# test 21
+
+# greeting!
