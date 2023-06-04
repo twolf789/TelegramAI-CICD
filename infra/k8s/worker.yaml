@@ -12,10 +12,12 @@ spec:
       labels:
         app: worker
     spec:
-      restartPolicy: Always
       containers:
         - name: worker
           image: IMAGE_PLACEHOLDER
+          imagePullPolicy: Always
           env:
             - name: ENV
               value: ENV_PLACEHOLDER
+      imagePullSecrets:
+          - name: regcred
