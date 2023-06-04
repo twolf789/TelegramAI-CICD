@@ -33,6 +33,10 @@ pipeline {
                     file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')
                 ]) {
                     sh '''
+                    # Delete previously created Private ECR Creds Secret
+                    kubectl delete secret regcred -n $APP_ENV
+                    # Create Private ECR Creds Secret
+                    kubectl create secret docker-registry regcred --docker-server=700935310038.dkr.ecr.us-east-1.amazonaws.com --docker-username=AWS --docker-password=$(aws ecr get-login-password --region us-east-1) --namespace=$APP_ENV
                     # apply the configurations to k8s cluster
                     kubectl apply --kubeconfig $KUBECONFIG -f $YAML_MANIFEST_PATH -n $APP_ENV
                     '''
